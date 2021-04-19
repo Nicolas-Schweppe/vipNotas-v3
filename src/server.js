@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path')
 const exphbs = require('express-handlebars');
 const morgan = require('morgan');
+const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
 //initializations
 const app = express();
 
@@ -14,12 +15,16 @@ app.engine('.hbs',exphbs({
     defaultLayout:'main',
     layoutsDir:path.join(app.get('views') ,'layouts'),
     partialsDir:path.join(app.get('views') ,'partials'),
-    extname:'.hbs' //que estencion voy a usar
+    extname:'.hbs', //que estencion voy a usar
+    runtimeOptions:{
+        allowProtoPropertiesByDefault:true,
+        allowProtoMethosdsByDefault:true
+    }
 }));
 app.set('view engine','.hbs');
 //middlewares
 app.use(express.urlencoded({extended:false}));
-app.use(morgan('dev'))
+app.use(morgan('dev'));
 //global variables
 
 //Routes
