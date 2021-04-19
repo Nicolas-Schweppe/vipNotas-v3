@@ -9,8 +9,8 @@ notesController.renderNoteForm = (req,res)=>{
 notesController.createNewNote = async (req,res)=>{
     const {title, description}=req.body;
     const NewNote = new Note({title,description});
-    console.log(NewNote);
     await NewNote.save();
+    res.redirect('/notes');
     
 }
 
@@ -27,8 +27,9 @@ notesController.updateNote = (req,res)=>{
     res.send('nota editada');
 }
 
-notesController.deleteNote = (req,res)=>{
-    res.send('nota eliminada');
+notesController.deleteNote = async (req,res)=>{
+    await Note.findByIdAndDelete(req.params.id);
+    res.redirect('/notes');
 }
 
 module.exports = notesController;
