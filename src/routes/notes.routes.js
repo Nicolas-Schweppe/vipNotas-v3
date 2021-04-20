@@ -18,9 +18,9 @@ router.post('/notes/newNote',createNewNote);
 router.get('/notes',renderNotes);
 
 //editar notas 
-router.get('/notes/edit/:id',renderEditForm);
+router.get('/notes/editNote/:id',renderEditForm);
 
-router.put('/notes/edit/:id',updateNote);
+router.put('/notes/editNote/:id',updateNote);
 
 //borrar 
 router.delete('/notes/delete/:id',deleteNote);

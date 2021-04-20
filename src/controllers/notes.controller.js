@@ -19,12 +19,17 @@ notesController.renderNotes =  async (req,res)=>{
    res.render('notes/allNotes',{notes});
 }
 
-notesController.renderEditForm = (req,res)=>{
-    res.send('editando form');
+notesController.renderEditForm = async (req,res)=>{
+    const notaEditar = await Note.findById(req.params.id).lean();
+    console.log(notaEditar);
+    res.render('notes/editNote',{notaEditar});
 }
 
-notesController.updateNote = (req,res)=>{
-    res.send('nota editada');
+notesController.updateNote = async (req,res)=>{
+    const {title, description } = req.body;
+    console.log(req.body);
+    await Note.findByIdAndUpdate(req.params.id,{title,description});
+    res.redirect('/notes');
 }
 
 notesController.deleteNote = async (req,res)=>{
