@@ -10,6 +10,7 @@ notesController.createNewNote = async (req,res)=>{
     const {title, description}=req.body;
     const NewNote = new Note({title,description});
     await NewNote.save();
+    req.flash('success_msg','Nota agregada');
     res.redirect('/notes');
     
 }
@@ -29,11 +30,13 @@ notesController.updateNote = async (req,res)=>{
     const {title, description } = req.body;
     console.log(req.body);
     await Note.findByIdAndUpdate(req.params.id,{title,description});
+    req.flash('success_msg','Nota Actualizada');
     res.redirect('/notes');
 }
 
 notesController.deleteNote = async (req,res)=>{
     await Note.findByIdAndDelete(req.params.id);
+    req.flash('success_msg','Nota Eliminada');
     res.redirect('/notes');
 }
 
