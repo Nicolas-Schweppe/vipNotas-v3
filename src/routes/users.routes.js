@@ -6,14 +6,14 @@ const {renderFormRegistro,
     formInicio,
     inicio,
     salir}
-    =require('../controllers/users.controller');
+    = require('../controllers/users.controller');
 
 
 router.get('/users/formRegistro',renderFormRegistro);
 
 router.post('/users/registrar',registrar);
 
-router.get('/users/inicio',formInicio);
+router.get('/users/formInicio',formInicio);
 
 router.post('/users/inicio',inicio);
 
