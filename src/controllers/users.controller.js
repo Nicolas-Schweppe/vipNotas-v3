@@ -1,6 +1,8 @@
 const User = require("../models/User");
 
 const usersController={}
+const passport = require('passport');
+
 
 
 usersController.renderFormRegistro= (req,res)=>{
@@ -40,12 +42,17 @@ usersController.formInicio=(req,res)=>{
     res.render('users/formInicio');
 }
 
-usersController.inicio = (req,res)=>{
-    
-}
+usersController.inicio = passport.authenticate('local',{
+    failureRedirect: 'inicio',
+    successRedirect:'/notes',
+    failureFlash: true
 
-usersController.salir=(req,res)=>{
-    res.send('saliendo');
+});
+
+usersController.salir =(req,res)=>{
+    req.logout();
+    req.flash('success_msg','Secion cerrada');
+    res.redirect('/users/inicio');
 }
 
 module.exports = usersController;

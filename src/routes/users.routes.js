@@ -13,7 +13,7 @@ router.get('/users/formRegistro',renderFormRegistro);
 
 router.post('/users/registrar',registrar);
 
-router.get('/users/formInicio',formInicio);
+router.get('/users/inicio',formInicio);
 
 router.post('/users/inicio',inicio);
 
