@@ -1,5 +1,6 @@
 const {Router}= require('express');
 const router = Router();
+const  {isAuthenticated} = require('../helpers/validar');
 
 const { renderNoteForm ,
     createNewNote ,
@@ -10,20 +11,20 @@ const { renderNoteForm ,
     } = require('../controllers/notes.controller');
 
 //nueva nota
-router.get('/notes/add',renderNoteForm);
+router.get('/notes/add',isAuthenticated,renderNoteForm);
 
-router.post('/notes/newNote',createNewNote);
+router.post('/notes/newNote',isAuthenticated,createNewNote);
 
 //todas las notas
-router.get('/notes',renderNotes);
+router.get('/notes',isAuthenticated,renderNotes);
 
 //editar notas 
-router.get('/notes/editNote/:id',renderEditForm);
+router.get('/notes/editNote/:id',isAuthenticated,renderEditForm);
 
-router.put('/notes/editNote/:id',updateNote);
+router.put('/notes/editNote/:id',isAuthenticated,updateNote);
 
 //borrar 
-router.delete('/notes/delete/:id',deleteNote);
+router.delete('/notes/delete/:id',isAuthenticated,deleteNote);
 
 
 module.exports = router;

@@ -13,10 +13,11 @@ const User = require('../models/User');
    
      const user = await User.findOne({email});
     if(!user){
+        console.log('no hay usuario');
         return done(null,false,{message:'No se encuentra usuario'});
         
     }else{
-       console.log('pase por aca ');
+       console.log('contrasennnnnnnna incorrecta');
         //comprobar contraseña 
         const match = await user.matchPassword(password);
         if(match){
