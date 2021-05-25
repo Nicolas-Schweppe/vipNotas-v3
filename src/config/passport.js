@@ -17,7 +17,7 @@ const User = require('../models/User');
         return done(null,false,{message:'No se encuentra usuario'});
         
     }else{
-       console.log('contrasennnnnnnna incorrecta');
+     
         //comprobar contraseña 
         const match = await user.matchPassword(password);
         if(match){

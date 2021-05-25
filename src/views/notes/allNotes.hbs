@@ -1,19 +1,22 @@
 <div class="row">
 
     {{#each notes}}
-    <div class="col-md-3">
-        <div class="card">
-            <div class="card-body">
+    <div class="col-md-3"    >
+        <div class="card "> 
+            <div class="card-body " >
+               
                 <h4 class="card-title d-flex justify-content-between align-items-center">
                     {{title }} <a href="/notes/editNote/{{_id}}" ><i class="fa fa-pencil"></i></a>
                 </h4>
                 <p>{{description}}</p>
                 <form  action="/notes/delete/{{_id}}?_method=DELETE" method="POST">
                     <input type="hidden" name="_method" value="DELETE">
-                     <button type="submit" class="btn btn-danger btn-block btn-sm">Borrar</button>
+                     <button type="submit" class="btn btn-danger btn-block btn-sm" <a href="#" onclick="return confirm('Estás seguro que deseas eliminar la nota ?');">Borrar</a></button>
                 </form>
             </div>
         </div>
     </div>
+    
     {{/each}}
+    
 </div>

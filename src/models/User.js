@@ -5,8 +5,10 @@ const UserSchema = new Schema({
     nombre:{ type: String , required:true },
     email:{type : String,required:true, unique:true},
     password:{type:String , required:true},
-
-},{timestamps:true});
+    categoria:{type: Schema.Types.ObjectId,
+        ref:'Categoria'}
+    },
+    {timestamps:true});
 
 ///cifrar la contraseña 
 UserSchema.methods.encryptPassword = async password =>{
