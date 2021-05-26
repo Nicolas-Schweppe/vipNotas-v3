@@ -10,6 +10,8 @@ notesController.createNewNote = async (req,res)=>{
     const {title, description}=req.body;
     const NewNote = new Note({title,description});
     NewNote.user = req.user.id ;
+    NewNote.categoria='60ae6247a39bf503fdbedb64';
+    console.log(NewNote.categoria+" esto es el id de la categoreia");
     await NewNote.save();
     
     
@@ -20,7 +22,7 @@ notesController.createNewNote = async (req,res)=>{
 
 notesController.renderNotes =  async (req,res)=>{
 
-   const notes = await Note.find({user:req.user.id}).lean();
+   const notes = await Note.find({categoria:req.params.id}).lean();
    res.render('notes/allNotes',{notes});
 }
 

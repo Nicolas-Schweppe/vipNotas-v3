@@ -16,7 +16,7 @@ router.get('/notes/add',isAuthenticated,renderNoteForm);
 router.post('/notes/newNote',isAuthenticated,createNewNote);
 
 //todas las notas
-router.get('/notes',isAuthenticated,renderNotes);
+router.get('/notes/:id',isAuthenticated,renderNotes);
 
 //editar notas 
 router.get('/notes/editNote/:id',isAuthenticated,renderEditForm);

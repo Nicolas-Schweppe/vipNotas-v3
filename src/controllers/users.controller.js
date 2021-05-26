@@ -44,7 +44,7 @@ usersController.formInicio=(req,res)=>{
 
 usersController.inicio = passport.authenticate('local',{
     failureRedirect: 'inicio',
-    successRedirect:'/notes',
+    successRedirect:'/',
     failureFlash: true
 
 });
