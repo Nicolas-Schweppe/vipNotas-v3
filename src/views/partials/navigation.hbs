@@ -21,14 +21,8 @@
     <ul class="navbar-nav ml-auto">
       {{#if user}}
       <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Notas
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="/notes">Todas las Notas</a></li>
-            <li><a class="dropdown-item" href="/notes/add">Agregar Nota</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="/users/salir">Cerrar Sesion</a></li>
+        <ul>
+          <a class="dropdown-item" href="/users/salir">Cerrar Sesion</a>
           </ul>
         </li>
        {{else}}

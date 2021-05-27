@@ -11,9 +11,9 @@ const { renderNoteForm ,
     } = require('../controllers/notes.controller');
 
 //nueva nota
-router.get('/notes/add',isAuthenticated,renderNoteForm);
+router.get('/notes/add/:id',isAuthenticated,renderNoteForm);
 
-router.post('/notes/newNote',isAuthenticated,createNewNote);
+router.post('/notes/newNote/:id',isAuthenticated,createNewNote);
 
 //todas las notas
 router.get('/notes/:id',isAuthenticated,renderNotes);
