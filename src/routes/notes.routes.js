@@ -13,7 +13,7 @@ const { renderNoteForm ,
 //nueva nota
 router.get('/notes/add/:id',isAuthenticated,renderNoteForm);
 
-router.post('/notes/newNote/:id',isAuthenticated,createNewNote);
+router.post('/notes/newNote/:id',isAuthenticated,createNewNote,renderNotes);
 
 //todas las notas
 router.get('/notes/:id',isAuthenticated,renderNotes);

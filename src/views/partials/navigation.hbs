@@ -5,6 +5,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
+    {{#if user}}
     <ul class="navbar-nav">
      <li class="nav-item dropdown">
        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -17,14 +18,21 @@
         </li>
         </li>
     </ul> 
-    
+    {{/if }}
     <ul class="navbar-nav ml-auto">
       {{#if user}}
-      <li class="nav-item dropdown">
-        <ul>
-          <a class="dropdown-item" href="/users/salir">Cerrar Sesion</a>
+      <ul class="navbar-nav">
+     <li class="nav-item dropdown">
+       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Perfil
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="/users/formActualizar">Cambiar Contraseña</a></li>
+            <li><a class="dropdown-item" href="/users/salir">Cerrar sesion</a></li>
           </ul>
         </li>
+        </li>
+    </ul> 
        {{else}}
         <li class="nav-item">
             <a href="/users/inicio" class="nav-link">Entrar</a>

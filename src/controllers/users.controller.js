@@ -49,6 +49,16 @@ usersController.inicio = passport.authenticate('local',{
 
 });
 
+usersController.rendenFormActualizar =(req, res)=>{
+    res.render('users/formActualizar');
+}
+
+usersController.actualizar=(req,res)=>{
+    const {id,email,password,newPassword,confirmar_newPassword}=req.body;
+    const usuario = req.user.id;
+    console.log(`${usuario+' '+email+' '+password+' '+newPassword+' '+confirmar_newPassword} aca estan los valores`); 
+}
+
 usersController.salir =(req,res)=>{
     req.logout();
     req.flash('success_msg','Secion cerrada');

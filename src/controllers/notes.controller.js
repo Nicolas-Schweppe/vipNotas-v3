@@ -13,14 +13,17 @@ notesController.createNewNote = async (req,res)=>{
     const NewNote = new Note({title,description});
     NewNote.user = req.user.id ;
     NewNote.categoria=req.params.id;
-
-    console.log(req.params.id+" esto es el id de la categoreia");
     await NewNote.save();
-    
+    const idCategoria = req.params.id;
     
     req.flash('success_msg','Nota agregada');
-    res.redirect('/notes');
-    
+   
+
+        const notes = await Note.find({categoria:req.params.id}).lean();
+        //const idCategoria = req.params.id;
+        
+        res.render('notes/allNotes',{notes,idCategoria});
+     
 }
 
 notesController.renderNotes =  async (req,res)=>{
