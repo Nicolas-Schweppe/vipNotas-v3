@@ -1,5 +1,12 @@
 body{
-   background-color: rgb(45, 119, 204);
+   
+   background-image: url('../img/montaña.jpeg');
+   background-size: cover;
+   background-position: center center;
+   background-attachment: fixed;
+   -webkit-background-size:cover;
+   -moz-background-size:cover;
+   -o-background-size:center; 
 }
 
 .logo{
