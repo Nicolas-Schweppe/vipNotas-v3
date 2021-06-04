@@ -50,36 +50,39 @@ usersController.inicio = passport.authenticate('local',{
 });
 
 usersController.rendenFormActualizar = async (req, res)=>{
-    const userEditar = await User.findOne(req.params.id).lean();
+    //const usuario = req.user.id;
+    const userEditar = await User.findOne({_id:req.user.id}).lean();
     res.render('users/formActualizar',{userEditar});
     
 }
 
 usersController.actualizar=async(req,res)=>{
     const {id,email,password,newPassword,confirmar_newPassword}=req.body;
-    const usuarioEditar = await User.findOne({email:email});
+    const usuarioEditar = await User.findOne({_id:req.user.id});
+    console.log('el id del usuario es :'+req.user.id);
     let contraseñaOriginal = usuarioEditar.password;
-    //let contraseñaAnterior = await usuarioEditar.matchPassword(password);
-    let contraseñaAnterior="$2a$10$F6Qa8X0W02X4rEVx/AICU.HodM1JNW3/WLIh2F0AxrULSMEPN3mlK";
-    
+    let contraseñaAnterior = await usuarioEditar.matchPassword(password);
+    //let contraseñaAnterior="$2a$10$I1fEF10uYcA9/m2XXreo1eSHeYsaZLPHH3DVuyE8nFLKxc6zEYJ/C";
+    console.log('original : '+contraseñaOriginal+' anterior: '+contraseñaAnterior);
 
     const nuevaContraseña= await usuarioEditar.encryptPassword(newPassword);
 
 
-    if(contraseñaOriginal === contraseñaAnterior){
+    if(contraseñaAnterior){
         
-        await User.updateOne(req.params.id,{$set:{password:nuevaContraseña}});
+        await User.updateOne({_id: req.user.id},{$set:{password:nuevaContraseña}});
         console.log(contraseñaOriginal + ' == '+ contraseñaAnterior);
         req.flash('success_msg','Usuario Actualizado');
-        res.redirect('/users/formActualizar');
+        res.redirect('/users/inicio');
         
     }else{
         console.log(contraseñaOriginal + ' == '+contraseñaAnterior);
         console.log('nueva clave '+ confirmar_newPassword);
         req.flash('error_msg','Contraseña incorrecta');
-            res.redirect('/users/formActualizar');
+            res.redirect('/users/inicio');
             
     }
+
 }    
 
 usersController.salir =(req,res)=>{

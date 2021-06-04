@@ -1,5 +1,6 @@
 const {Router} = require('express');
 const router = Router();
+const  {isAuthenticated} = require('../helpers/validar');
 
 const {renderFormRegistro,
     registrar,
@@ -19,9 +20,9 @@ router.get('/users/inicio',formInicio);
 
 router.post('/users/inicio',inicio);
 
-router.get('/users/formActualizar',rendenFormActualizar);
+router.get('/users/formActualizar',isAuthenticated,rendenFormActualizar);
 
-router.put('/users/actualizar',actualizar);
+router.post('/users/actualizar',isAuthenticated,actualizar);
 
 router.get('/users/salir',salir);
 
