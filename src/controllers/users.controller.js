@@ -49,15 +49,38 @@ usersController.inicio = passport.authenticate('local',{
 
 });
 
-usersController.rendenFormActualizar =(req, res)=>{
-    res.render('users/formActualizar');
+usersController.rendenFormActualizar = async (req, res)=>{
+    const userEditar = await User.findOne(req.params.id).lean();
+    res.render('users/formActualizar',{userEditar});
+    
 }
 
-usersController.actualizar=(req,res)=>{
+usersController.actualizar=async(req,res)=>{
     const {id,email,password,newPassword,confirmar_newPassword}=req.body;
-    const usuario = req.user.id;
-    console.log(`${usuario+' '+email+' '+password+' '+newPassword+' '+confirmar_newPassword} aca estan los valores`); 
-}
+    const usuarioEditar = await User.findOne({email:email});
+    let contraseñaOriginal = usuarioEditar.password;
+    //let contraseñaAnterior = await usuarioEditar.matchPassword(password);
+    let contraseñaAnterior="$2a$10$F6Qa8X0W02X4rEVx/AICU.HodM1JNW3/WLIh2F0AxrULSMEPN3mlK";
+    
+
+    const nuevaContraseña= await usuarioEditar.encryptPassword(newPassword);
+
+
+    if(contraseñaOriginal === contraseñaAnterior){
+        
+        await User.updateOne(req.params.id,{$set:{password:nuevaContraseña}});
+        console.log(contraseñaOriginal + ' == '+ contraseñaAnterior);
+        req.flash('success_msg','Usuario Actualizado');
+        res.redirect('/users/formActualizar');
+        
+    }else{
+        console.log(contraseñaOriginal + ' == '+contraseñaAnterior);
+        console.log('nueva clave '+ confirmar_newPassword);
+        req.flash('error_msg','Contraseña incorrecta');
+            res.redirect('/users/formActualizar');
+            
+    }
+}    
 
 usersController.salir =(req,res)=>{
     req.logout();
