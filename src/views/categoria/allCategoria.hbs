@@ -1,11 +1,12 @@
-<div class="row"style="opacity: 93%;">
+
+<div class="row"style="opacity: 83%;"></br>
  
-    {{#each categoria}}
+    {{#each categoria}}</br>
      
     <div class="col-md-3">
         <div class="card">
             <div class="card-body" align="center">
-               <a href="/notes/{{_id}}" > <img 
+               <a href="/notes/{{_id}}"><img 
     src="/img/carpeta.png"
     class="card-img-top"
     style='width:40px; height:40px;'
@@ -21,7 +22,7 @@
                 
                 <form  action="/categoria/delete/{{_id}}?_method=DELETE" method="POST">
                     <input type="hidden" name="_method" value="DELETE">
-                     <button type="submit" class="btn btn-danger btn-block btn-sm" <a href="#" onclick="return confirm('Si borra la Categoria pèrdera las notas en ella. ¿Desea continuar?');">Borrar</a></button>
+                     <button type="submit" class="btn btn-danger btn-block btn-sm" <a href="#"  onclick="return confirm('Si borra la Categoria pèrdera las notas en ella. ¿Desea continuar?');">Borrar</a></button>
                 </form>
             </div>
         </div>

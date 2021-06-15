@@ -28,7 +28,7 @@ notesController.createNewNote = async (req,res)=>{
 
 notesController.renderNotes =  async (req,res)=>{
 
-   const notes = await Note.find({categoria:req.params.id}).lean();
+   const notes = await Note.find({user:req.user.id}).lean();
    const idCategoria = req.params.id;
    
    res.render('notes/allNotes',{notes,idCategoria});
@@ -61,7 +61,7 @@ notesController.deleteNote = async (req,res)=>{
            res.redirect('/notes');
         }
     req.flash('success_msg','Nota Eliminada');
-    res.redirect('/notes');
+    res.redirect('/categoria/');
 
 }
 

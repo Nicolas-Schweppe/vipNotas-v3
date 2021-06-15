@@ -26,7 +26,8 @@ usersController.registrar= async(req,res) => {
     }else{
         const emailUsers = await User.findOne({email:email});
         if(emailUsers){
-            req.flash('error_msg','El correo ya esta registrado');
+            //errors.push({text:'El correo ya se encuentra registrado'});
+            req.flash('errors','El correo ya esta registrado');
             res.redirect('/users/formRegistro');
         }else{
             const newUsers =new User({nombre,email,password});
@@ -87,7 +88,7 @@ usersController.actualizar=async(req,res)=>{
 
 usersController.salir =(req,res)=>{
     req.logout();
-    req.flash('success_msg','Secion cerrada');
+    req.flash('success_msg','Sesion cerrada');
     res.redirect('/users/inicio');
 }
 
