@@ -27,11 +27,18 @@ notesController.createNewNote = async (req,res)=>{
 }
 
 notesController.renderNotes =  async (req,res)=>{
-
-   const notes = await Note.find({user:req.user.id}).lean();
-   const idCategoria = req.params.id;
+    const idCategoria = req.params.id;
+    const usuario1 = req.user.id;
    
-   res.render('notes/allNotes',{notes,idCategoria});
+    const notes = await Note.find({user:req.user.id,categoria:idCategoria}).lean();
+    const contenido = Object.entries(notes).length === 0; //ver si el objeto esta vacio. evita inj en url
+        if(contenido){
+            req.flash('error_msg','No autorizado');
+            res.redirect('/categoria/');
+       }else{
+            res.render('notes/allNotes',{notes,idCategoria});
+       }
+       
 }
 
 notesController.renderEditForm = async (req,res)=>{
@@ -50,7 +57,7 @@ notesController.updateNote = async (req,res)=>{
     console.log(req.body);
     await Note.findByIdAndUpdate(req.params.id,{title,description});
     req.flash('success_msg','Nota Actualizada');
-    res.redirect('/notes');
+    res.redirect('/categoria/');
 }
 
 notesController.deleteNote = async (req,res)=>{
@@ -58,7 +65,7 @@ notesController.deleteNote = async (req,res)=>{
     const notaEliminar = await Note.findByIdAndDelete(req.params.id);  
         if(notaEliminar.user != req.user.id){
            req.flash('error_msg','No autorizado');
-           res.redirect('/notes');
+           res.redirect('/notes/allNotes');
         }
     req.flash('success_msg','Nota Eliminada');
     res.redirect('/categoria/');
