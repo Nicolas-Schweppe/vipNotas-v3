@@ -2,6 +2,8 @@ const notesController={};
 
 const Note = require('../models/Notes');
 const Categoria = require('../models/Categoria');
+const User = require('../models/User');
+const { compare } = require('bcryptjs');
 
 notesController.renderNoteForm = (req,res)=>{
     const idCategoria = req.params.id;
@@ -27,18 +29,34 @@ notesController.createNewNote = async (req,res)=>{
 }
 
 notesController.renderNotes =  async (req,res)=>{
-    const idCategoria = req.params.id;
-    const usuario1 = req.user.id;
    
-    const notes = await Note.find({user:req.user.id,categoria:idCategoria}).lean();
-    const contenido = Object.entries(notes).length === 0; //ver si el objeto esta vacio. evita inj en url
-        if(contenido){
-            req.flash('error_msg','No autorizado');
-            res.redirect('/categoria/');
-       }else{
-            res.render('notes/allNotes',{notes,idCategoria});
-       }
-       
+    
+    const categoria1 =await Categoria.findOne({"user":{$eq :req.user.id}});
+    //const cat1=categoria1.user;                                                 //evita injecion de url y comprueba los parametros con la base
+    const categoria2 =await Categoria.findOne({"_id":{$eq :req.params.id}});
+    //const cat2=categoria2.user;
+
+    console.log('categoria de db :'+categoria1.user);
+    console.log('categoria de parametro :'+categoria2.user);
+    
+
+    const validar=categoria1.user.equals(categoria2.user); 
+    console.log(validar);
+    const cat=categoria1.user;
+
+
+    if(validar){
+        const idCategoria = req.params.id;
+        const notes = await Note.find({"categoria":{$eq :idCategoria},"user":{$eq:req.user.id}}).lean();
+        console.log("aprobado");
+
+    res.render('notes/allNotes',{notes,idCategoria});   
+    }else{
+         req.flash('error_msg','No autorizado');
+        console.log("desaprobado");
+        res.redirect('/categoria/');
+    }
+
 }
 
 notesController.renderEditForm = async (req,res)=>{
