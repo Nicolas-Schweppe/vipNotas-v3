@@ -14,7 +14,7 @@ require('./config/passport');
 
 
 //setting
-app.set('port',process.env.PORT || 4000 );
+app.set('port',process.env.PORT || 26223 );
 app.set('views',path.join(__dirname ,'views')); //ruta de vistas
 app.engine('.hbs',exphbs({
     defaultLayout:'main',
