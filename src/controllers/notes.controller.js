@@ -32,17 +32,11 @@ notesController.renderNotes =  async (req,res)=>{
    
     
     const categoria1 =await Categoria.findOne({"user":{$eq :req.user.id}});
-    //const cat1=categoria1.user;                                                 //evita injecion de url y comprueba los parametros con la base
+                                                 //evita injecion de url y comprueba los parametros con la base
     const categoria2 =await Categoria.findOne({"_id":{$eq :req.params.id}});
-    //const cat2=categoria2.user;
-
-    console.log('categoria de db :'+categoria1.user);
-    console.log('categoria de parametro :'+categoria2.user);
-    
 
     const validar=categoria1.user.equals(categoria2.user); 
-    console.log(validar);
-    const cat=categoria1.user;
+    
 
 
     if(validar){

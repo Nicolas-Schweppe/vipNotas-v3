@@ -1,5 +1,5 @@
 const User = require("../models/User");
-
+const Categoria = require("../models/Categoria");
 const usersController={}
 const passport = require('passport');
 
@@ -26,15 +26,24 @@ usersController.registrar= async(req,res) => {
     }else{
         const emailUsers = await User.findOne({email:email});
         if(emailUsers){
-            //errors.push({text:'El correo ya se encuentra registrado'});
             req.flash('errors','El correo ya esta registrado');
             res.redirect('/users/formRegistro');
         }else{
             const newUsers =new User({nombre,email,password});
             newUsers.password = await newUsers.encryptPassword(password);
             await newUsers.save();
+            const usuarioNuevo= await User.findOne({email:email});
+            const usuario1=usuarioNuevo.id;
+            
+            const nombreC ="Vip";  // se crea una categoria para evitar error al validar
+            
+            const NewCategoria = Categoria({nombre:nombreC,user:usuario1});
+            NewCategoria.user = usuarioNuevo.id ;
+            console.log("usuario id :"+usuarioNuevo.id);
+            await NewCategoria.save();
+            
             req.flash('success_msg','Usuario creado');
-            res.redirect('/users/formRegistro');
+            res.redirect('/users/inicio');
         }
     }
 }
@@ -51,7 +60,7 @@ usersController.inicio = passport.authenticate('local',{
 });
 
 usersController.rendenFormActualizar = async (req, res)=>{
-    //const usuario = req.user.id;
+   
     const userEditar = await User.findOne({_id:req.user.id}).lean();
     res.render('users/formActualizar',{userEditar});
     
@@ -60,11 +69,9 @@ usersController.rendenFormActualizar = async (req, res)=>{
 usersController.actualizar=async(req,res)=>{
     const {id,email,password,newPassword,confirmar_newPassword}=req.body;
     const usuarioEditar = await User.findOne({_id:req.user.id});
-    console.log('el id del usuario es :'+req.user.id);
+
     let contraseñaOriginal = usuarioEditar.password;
     let contraseñaAnterior = await usuarioEditar.matchPassword(password);
-    //let contraseñaAnterior="$2a$10$I1fEF10uYcA9/m2XXreo1eSHeYsaZLPHH3DVuyE8nFLKxc6zEYJ/C";
-    console.log('original : '+contraseñaOriginal+' anterior: '+contraseñaAnterior);
 
     const nuevaContraseña= await usuarioEditar.encryptPassword(newPassword);
 
