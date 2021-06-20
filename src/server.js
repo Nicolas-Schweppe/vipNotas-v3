@@ -14,7 +14,9 @@ require('./config/passport');
 
 
 //setting
-app.set('port',process.env.PORT || 26223 );
+app.set('port',process.env.PORT || 4000 ,  function(){
+    console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+  });
 app.set('views',path.join(__dirname ,'views')); //ruta de vistas
 app.engine('.hbs',exphbs({
     defaultLayout:'main',
