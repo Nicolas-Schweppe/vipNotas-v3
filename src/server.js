@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path')
+const serveStatic = require('serve-static');
 const exphbs = require('express-handlebars');
 const morgan = require('morgan');
 const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access');
@@ -14,9 +15,14 @@ require('./config/passport');
 
 
 //setting
-app.listen((process.env.PORT || 5000), function(){
+/*app.listen((process.env.PORT || 5000), function(){
     console.log('listening on *:5000');
-  });
+  });*/
+    app.use(serveStatic(path.join(__dirname, 'dist')));
+
+    var port = process.env.PORT || 8000;
+    app.listen(port);
+    console.log('server started ' + port);
 /*
 app.set('port',process.env.PORT || 4000 ,  function(){
     console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
