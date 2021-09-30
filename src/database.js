@@ -3,7 +3,7 @@ const { use } = require('./routes/users.routes');
 //const NUEVA='mongodb+srv://nicolas:FX8350amdr9280X_@cluster0.nzdq0.mongodb.net/notes-app?retryWrites=true&w=majority';
 
 const { NOTES_APP_MONGODB_HOST, NOTES_APP_MONGODB_DATABASE,DB_URL} =process.env; //traigo variables de env
-const MONGODB_URI=  DB_URL||`mongodb://${NOTES_APP_MONGODB_HOST}/${NOTES_APP_MONGODB_DATABASE}`;
+const MONGODB_URI=  DB_URL//||`mongodb://${NOTES_APP_MONGODB_HOST}/${NOTES_APP_MONGODB_DATABASE}`;
 
 mongoose.connect(MONGODB_URI,{
     useUnifiedTopology:true,

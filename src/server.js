@@ -16,7 +16,7 @@ require('./config/passport');
 
 //setting
 
-app.set('port',process.env.PORT || 8080 ,  function(){
+app.set('port',process.env.PORT ,  function(){
     console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
   });
 
