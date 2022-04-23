@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    
     "start": "node server.js",
     "dev": "nodemon src/index.js"
   },
@@ -12,7 +11,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "dotenv": "^8.2.0",
+    "dotenv": "^8.6.0",
     "nodemon": "^2.0.7",
     "npm-check-updates": "^11.4.1"
   },
@@ -20,12 +19,14 @@
     "@handlebars/allow-prototype-access": "^1.0.5",
     "bcryptjs": "^2.4.3",
     "connect-flash": "^0.1.1",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-handlebars": "^3.1.0",
+    "express-myconnection": "^1.0.4",
     "express-session": "^1.17.1",
     "method-override": "^3.0.0",
     "mongoose": "^5.11.15",
     "morgan": "^1.10.0",
+    "mysql": "^2.18.1",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0"
   }

@@ -3,7 +3,7 @@ require('dotenv').config();
 const app = require('./server');
 require('./database.js');
 
-console.log(process.env.MONGODB_URI);
+//console.log(process.env.MONGODB_URI);
 
 
 

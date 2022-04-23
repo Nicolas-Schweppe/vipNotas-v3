@@ -1,6 +1,7 @@
 const {Router} = require('express');
 const router = Router();
 const  {isAuthenticated} = require('../helpers/validar');
+const pool = require('../database');
 
 const {renderFormRegistro,
     registrar,

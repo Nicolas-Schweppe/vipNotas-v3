@@ -8,6 +8,10 @@ const methodOverride = require('method-override');
 const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
+
+
+
+
 //initializations
 const app = express();
 require('./config/passport');
@@ -16,7 +20,7 @@ require('./config/passport');
 
 //setting
 
-app.set('port',process.env.PORT ,  function(){
+app.set('port',process.env.PORT || 4000,  function(){
     console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
   });
 
@@ -34,8 +38,12 @@ app.engine('.hbs',exphbs({
 }));
 app.set('view engine','.hbs');
 //middlewares
+
+
+
 app.use(express.urlencoded({extended:false}));
 app.use(morgan('dev'));
+
 app.use(methodOverride('_method'));
 app.use(session({
     secret:'secret',
