@@ -1,6 +1,5 @@
 const User = require("../models/User");
 const Categoria = require("../models/Categoria");
-
 const passport = require('passport');
 const pool = require('../database');
 const usersController={}
@@ -27,9 +26,42 @@ usersController.registrar= async(req,res) => {
     }
 
     console.log(users);
+
+    if(password != confirmar_password){
+        errors.push({text: 'Contraseña no coinciden'});
+    }if(password.length < 7 ){
+        errors.push({text:'Se solicita que la contraseña tenga mas de 7 caracteres'});
+    }if(errors.length > 0){
+        res.render('users/formRegistro',{
+            errors,
+            nombre,
+            email
+        })}else{
     
-    pool.query('INSERT INTO users set ?',[users]);
-    res.send('ok');
+    
+    const consultaCorreo = await pool.query('SELECT email FROM users WHERE email= ?', email );
+   
+    if(Object.entries(consultaCorreo).length === 0){
+        
+
+
+
+        
+        await pool.query('INSERT INTO users set ?',[users]);
+        req.flash('success_msg','Usuario creado');
+
+        res.redirect('/users/inicio');
+    }else{
+        errors.push({text: 'El correo ya existe'});
+        res.render('users/formRegistro',{
+            errors,
+            nombre,
+            email
+        })
+        console.log("el correo existe");
+        
+    }
+}
     
     /*
     
